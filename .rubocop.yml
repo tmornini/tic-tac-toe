@@ -1,0 +1,45 @@
+Lint/AmbiguousOperator:
+  Enabled: false
+
+Lint/AmbiguousRegexpLiteral:
+  Enabled: false
+
+Style/AlignHash:
+  Enabled: true
+  EnforcedHashRocketStyle: table
+  EnforcedColonStyle: table
+
+Style/Documentation:
+  Enabled: false
+
+Style/EmptyLineBetweenDefs:
+  AllowAdjacentOneLineDefs: true
+
+Style/MethodCalledOnDoEndBlock:
+  Enabled: false
+
+Style/MethodDefParentheses:
+  EnforcedStyle: require_no_parentheses
+
+Style/SingleLineMethods:
+  Enabled: false
+
+Style/SpaceAroundOperators:
+  MultiSpaceAllowedForOperators:
+    - '='
+    - '=>'
+    - '||'
+    - '||='
+    - '+='
+    - 'and'
+    - '+'
+    - '&&'
+
+Style/SpaceInsideBrackets:
+  Enabled: false
+
+Style/SpaceInsideHashLiteralBraces:
+  EnforcedStyleForEmptyBraces: space
+
+Style/SpaceInsideParens:
+  Enabled: false
