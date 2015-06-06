@@ -10,7 +10,9 @@ module TicTacToe
   Class Game do
     board = Board.new
 
-    board.cell_is_an_o 1, 1
+    board.set x:  1,
+              y:  1,
+              to: 'x'
 
     Game.new(board, Player.new('Tom'), Player.new('John')).play
   end

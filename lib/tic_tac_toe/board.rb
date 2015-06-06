@@ -1,5 +1,7 @@
 # -*- encoding : utf-8 -*-
 
+require 'tic_tac_toe/triplet'
+
 module TicTacToe
   class Board
     def initialize
@@ -8,22 +10,50 @@ module TicTacToe
                  [ ' ', ' ', ' ' ] ]
     end
 
-    def cell_is_an_x x, y
-      @cells[x][y] = 'x'
-    end
-
-    def cell_is_an_o x, y
-      @cells[x][y] = 'o'
+    def set args
+      @cells[args[:x]][args[:y]] = args[:to]
     end
 
     def to_s
-      "-------\n"                                           \
-      "|#{@cells[0][0]}|#{@cells[1][0]}|#{@cells[2][0]}|\n" \
-      "-------\n"                                           \
-      "|#{@cells[0][1]}|#{@cells[1][1]}|#{@cells[2][1]}|\n" \
-      "-------\n"                                           \
-      "|#{@cells[0][2]}|#{@cells[1][2]}|#{@cells[2][2]}|\n" \
-      "-------\n"
+      "-------\n"  +
+        row_0.to_s +
+        row_1.to_s +
+        row_2.to_s +
+        "-------\n"
+    end
+
+    private
+
+    def row_0
+      Triplet.new @cells[0][2], @cells[1][2], @cells[2][2]
+    end
+
+    def row_1
+      Triplet.new @cells[0][1], @cells[1][1], @cells[2][1]
+    end
+
+    def row_2
+      Triplet.new @cells[0][0], @cells[1][0], @cells[2][0]
+    end
+
+    def column_0
+      Triplet.new @cells[0][2], @cells[0][1], @cells[0][0]
+    end
+
+    def column_1
+      Triplet.new @cells[1][2], @cells[1][1], @cells[1][0]
+    end
+
+    def column_2
+      Triplet.new @cells[2][2], @cells[2][1], @cells[2][0]
+    end
+
+    def diagonal_0
+      Triplet.new @cells[0][2], @cells[1][1], @cells[2][0]
+    end
+
+    def diagonal_1
+      Triplet.new @cells[0][0], @cells[1][1], @cells[2][2]
     end
   end
 end
