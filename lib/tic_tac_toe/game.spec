@@ -12,7 +12,7 @@ module TicTacToe
 
     board.set x:  1,
               y:  1,
-              to: 'x'
+              to: 'X'
 
     Game.new(board, Player.new('Tom'), Player.new('John')).play
   end

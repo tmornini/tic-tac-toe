@@ -15,11 +15,13 @@ module TicTacToe
     end
 
     def to_s
-      "-------\n"  +
-        row_0.to_s +
-        row_1.to_s +
-        row_2.to_s +
-        "-------\n"
+      "-------------\n"   \
+        "#{row_0}\n"      \
+        "-------------\n" \
+        "#{row_1}\n"      \
+        "-------------\n" \
+        "#{row_2}\n"      \
+        "-------------\n"
     end
 
     private
