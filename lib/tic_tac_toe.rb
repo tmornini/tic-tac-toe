@@ -1,6 +1,5 @@
 # -*- encoding : utf-8 -*-
 
-require '_spec/_helpers'
-
 module TicTacToe
+  VERSION = '0.0.1'
 end
