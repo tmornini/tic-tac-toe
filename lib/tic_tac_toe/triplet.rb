@@ -2,10 +2,10 @@
 
 module TicTacToe
   class Triplet
-    def initialize cell_0, cell_1, cell_2
-      @cell_0 = cell_0
-      @cell_1 = cell_1
-      @cell_2 = cell_2
+    def initialize args
+      @cell_0 = args[:cell_0]
+      @cell_1 = args[:cell_1]
+      @cell_2 = args[:cell_2]
     end
 
     def to_s

@@ -2,8 +2,8 @@
 
 module TicTacToe
   class Player
-    def initialize name
-      @name = name
+    def initialize args
+      @name = args[:name]
     end
 
     def to_s

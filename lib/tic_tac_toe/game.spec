@@ -8,12 +8,35 @@ require 'tic_tac_toe/player'
 
 module TicTacToe
   Class Game do
-    board = Board.new
+    let(:args) do
+      {
+        board:    Board.new,
+        player_1: Player.new(name: player_1_name),
+        player_2: Player.new(name: player_2_name)
+      }
+    end
 
-    board.set x:  1,
-              y:  1,
-              to: 'X'
+    let(:player_1_name) { 'Tom' }
+    let(:player_2_name) { 'John' }
 
-    Game.new(board, Player.new('Tom'), Player.new('John')).play
+    RespondsTo :new do
+      ByReturning 'a new Game' do
+        subject.new(args).must_be_instance_of Game
+      end
+    end
+
+    Instance do
+      subject { Game.new args }
+
+      RespondsTo :play do
+        ByReturning nil do
+          subject.play.must_be_nil
+        end
+      end
+
+      RespondsTo :to_s do
+        ByReturning 'a String'
+      end
+    end
   end
 end
