@@ -4,8 +4,7 @@ require 'rake/testtask'
 
 namespace :spec do
   Rake::TestTask.new :unit do |task|
-    task.description = nil
-    task.loader      = 'file://_spec/loader'
-    task.test_files  = FileList['lib/**/*.spec']
+    task.loader     = 'file://_spec/loader'
+    task.test_files = FileList['lib/**/*.spec']
   end
 end
