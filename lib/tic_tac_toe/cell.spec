@@ -17,9 +17,10 @@ module TicTacToe
 
     let(:x)      { 1 }
     let(:y)      { 1 }
-    let(:player) { Player.new name: player_name }
+    let(:player) { Player.new name: player_name, side: side }
 
     let(:player_name) { 'Tom' }
+    let(:side) { :x }
 
     RespondsTo :new do
       ByReturning 'a new Cell' do
@@ -28,10 +29,22 @@ module TicTacToe
     end
 
     Instance do
-      subject { Cell.new }
+      subject { Cell.new args }
 
       RespondsTo :to_s do
-        ByReturning 'a String'
+        When 'player is on side :x' do
+          ByReturning 'an X' do
+            subject.to_s.must_equal 'X'
+          end
+        end
+
+        When 'player is on side :o' do
+          let(:side) { :o }
+
+          ByReturning 'an O' do
+            subject.to_s.must_equal 'O'
+          end
+        end
       end
     end
   end

@@ -27,35 +27,51 @@ module TicTacToe
     private
 
     def row_0
-      Triplet.new @cells[0][2], @cells[1][2], @cells[2][2]
+      Triplet.new cell_0: @cells[0][2],
+                  cell_1: @cells[1][2],
+                  cell_2: @cells[2][2]
     end
 
     def row_1
-      Triplet.new @cells[0][1], @cells[1][1], @cells[2][1]
+      Triplet.new cell_0: @cells[0][1],
+                  cell_1: @cells[1][1],
+                  cell_2: @cells[2][1]
     end
 
     def row_2
-      Triplet.new @cells[0][0], @cells[1][0], @cells[2][0]
+      Triplet.new cell_0: @cells[0][0],
+                  cell_1: @cells[1][0],
+                  cell_2: @cells[2][0]
     end
 
     def column_0
-      Triplet.new @cells[0][2], @cells[0][1], @cells[0][0]
+      Triplet.new cell_0: @cells[0][2],
+                  cell_1: @cells[0][1],
+                  cell_2: @cells[0][0]
     end
 
     def column_1
-      Triplet.new @cells[1][2], @cells[1][1], @cells[1][0]
+      Triplet.new cell_0: @cells[1][2],
+                  cell_1: @cells[1][1],
+                  cell_2: @cells[1][0]
     end
 
     def column_2
-      Triplet.new @cells[2][2], @cells[2][1], @cells[2][0]
+      Triplet.new cell_0: @cells[2][2],
+                  cell_1: @cells[2][1],
+                  cell_2: @cells[2][0]
     end
 
     def diagonal_0
-      Triplet.new @cells[0][2], @cells[1][1], @cells[2][0]
+      Triplet.new cell_0: @cells[0][2],
+                  cell_1: @cells[1][1],
+                  cell_2: @cells[2][0]
     end
 
     def diagonal_1
-      Triplet.new @cells[0][0], @cells[1][1], @cells[2][2]
+      Triplet.new cell_0: @cells[0][0],
+                  cell_1: @cells[1][1],
+                  cell_2: @cells[2][2]
     end
   end
 end
