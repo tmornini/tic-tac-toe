@@ -10,8 +10,8 @@ module TicTacToe
                  [ ' ', ' ', ' ' ] ]
     end
 
-    def set args
-      @cells[args[:x]][args[:y]] = args[:to]
+    def put_cell_at args
+      @cells[args[:x]][args[:y]] = args[:cell]
     end
 
     def to_s

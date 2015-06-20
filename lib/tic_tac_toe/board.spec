@@ -30,7 +30,7 @@ module TicTacToe
       let(:x)      { 1 }
       let(:y)      { 1 }
 
-      let(:to) do
+      let(:cell) do
         Cell.new(
           x:      x,
           y:      y,
@@ -38,18 +38,18 @@ module TicTacToe
         )
       end
 
-      RespondsTo :set do
-        ByReturning 'the :to parameter' do
-          subject.set(
-            x:  x,
-            y:  y,
-            to: to
-          ).must_equal to
+      RespondsTo :put_cell_at do
+        ByReturning 'the :cell parameter' do
+          subject.put_cell_at(
+            cell: cell,
+            x:    x,
+            y:    y
+          ).must_equal cell
         end
       end
 
       RespondsTo :to_s do
-        ByReturning 'a String' do
+        ByReturning 'an ASCII formatted Board' do
           subject.to_s.must_equal "-------------\n" \
                                   "|   |   |   |\n" \
                                   "|---+---+---|\n" \
