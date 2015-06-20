@@ -5,9 +5,9 @@ require 'tic_tac_toe/triplet'
 module TicTacToe
   class Board
     def initialize
-      @cells = [ [ ' ', ' ', ' ' ],
-                 [ ' ', ' ', ' ' ],
-                 [ ' ', ' ', ' ' ] ]
+      @cells = [ [ Cell, Cell, Cell ],
+                 [ Cell, Cell, Cell ],
+                 [ Cell, Cell, Cell ] ]
     end
 
     def put_cell_at args

@@ -24,6 +24,12 @@ module TicTacToe
       end
     end
 
+    RespondsTo :to_s do
+      ByReturning 'a space' do
+        subject.to_s.must_equal ' '
+      end
+    end
+
     Instance do
       subject { Cell.new args }
 

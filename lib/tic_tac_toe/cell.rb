@@ -2,7 +2,11 @@
 
 module TicTacToe
   class Cell
-    def initialize args
+    def self.to_s
+      ' '
+    end
+
+    def initialize args = { }
       @player = args[:player]
     end
 
