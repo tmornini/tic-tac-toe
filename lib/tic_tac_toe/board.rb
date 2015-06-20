@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
 
+require 'tic_tac_toe/cell'
 require 'tic_tac_toe/triplet'
 
 module TicTacToe

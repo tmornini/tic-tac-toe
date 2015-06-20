@@ -2,6 +2,7 @@
 
 require '_spec/_helpers'
 
+require 'tic_tac_toe/board'
 require 'tic_tac_toe/player'
 
 module TicTacToe
@@ -27,7 +28,7 @@ module TicTacToe
 
       RespondsTo :to_s do
         ByReturning 'the Players name' do
-          subject.to_s.must_equal player_name
+          subject.to_s.must_equal "name: #{player_name}, side: #{side}"
         end
       end
 
@@ -44,6 +45,18 @@ module TicTacToe
           ByReturning false do
             subject.x?.must_equal false
           end
+        end
+      end
+
+      RespondsTo :make_move_on do
+        let(:move_args) do
+          {
+            board: Board.new
+          }
+        end
+
+        ByReturning 'a Cell' do
+          subject.make_move_on(move_args).must_be_instance_of Cell
         end
       end
     end

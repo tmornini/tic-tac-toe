@@ -9,11 +9,13 @@ module TicTacToe
     end
 
     def play
-      # puts 'board:'
-      # puts @board
-      # puts "player_1: #{@player_1}"
-      # puts "player_2: #{@player_2}"
-      # puts 'Shall we play?'
+      loop do
+        @player_1.make_move_on board: @board
+        # @board.check_for_winner
+        @player_2.make_move_on board: @board
+        # @board.check_for_winner
+        break
+      end
     end
   end
 end
