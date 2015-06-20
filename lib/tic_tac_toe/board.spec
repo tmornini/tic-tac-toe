@@ -32,8 +32,6 @@ module TicTacToe
 
       let(:cell) do
         Cell.new(
-          x:      x,
-          y:      y,
           player: player
         )
       end
