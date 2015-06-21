@@ -15,6 +15,10 @@ module TicTacToe
       @cells[args[:x]][args[:y]] = args[:cell]
     end
 
+    def check_for_winner
+      row_0.check_for_winner
+    end
+
     def to_s
       "-------------\n"   \
         "#{row_0}\n"      \

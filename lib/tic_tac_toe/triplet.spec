@@ -2,6 +2,7 @@
 
 require '_spec/_helpers'
 
+require 'tic_tac_toe/player'
 require 'tic_tac_toe/triplet'
 
 module TicTacToe
@@ -14,9 +15,9 @@ module TicTacToe
       }
     end
 
-    let(:cell_0) { ' ' }
-    let(:cell_1) { ' ' }
-    let(:cell_2) { ' ' }
+    let(:cell_0) { Cell }
+    let(:cell_1) { Cell }
+    let(:cell_2) { Cell }
 
     RespondsTo :new do
       ByReturning 'a new Player' do
@@ -26,6 +27,42 @@ module TicTacToe
 
     Instance do
       subject { Triplet.new args }
+
+      RespondsTo :check_for_winner do
+        When 'a cell is empty' do
+          ByReturning nil do
+            subject.check_for_winner.must_be_nil
+          end
+        end
+
+        When 'at least one cell is filled and all three cells are the same' do
+          let(:cell_0) { x_cell }
+          let(:cell_1) { x_cell }
+          let(:cell_2) { x_cell }
+
+          let(:x_cell)   { Cell.new player: x_player }
+          let(:x_player) { Player.new name: 'Bob', side: :x }
+
+          ByReturning 'the winning Player' do
+            subject.check_for_winner.must_be_instance_of Player
+          end
+        end
+
+        When 'all cells are filled and all three cells are not equal' do
+          let(:cell_0) { x_cell }
+          let(:cell_1) { o_cell }
+          let(:cell_2) { o_cell }
+
+          let(:x_cell)   { Cell.new player: x_player }
+          let(:x_player) { Player.new name: 'Bob', side: :x }
+          let(:o_cell)   { Cell.new player: o_player }
+          let(:o_player) { Player.new name: 'Cindy', side: :o }
+
+          ByReturning nil do
+            subject.check_for_winner.must_be_nil
+          end
+        end
+      end
 
       RespondsTo :to_s do
         ByReturning 'the Players name' do

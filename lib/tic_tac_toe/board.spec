@@ -46,6 +46,12 @@ module TicTacToe
         end
       end
 
+      RespondsTo :check_for_winner do
+        ByReturning 'the winning Player or nil' do
+          subject.check_for_winner.must_be_nil
+        end
+      end
+
       RespondsTo :to_s do
         ByReturning 'an ASCII formatted Board' do
           subject.to_s.must_equal "-------------\n" \
