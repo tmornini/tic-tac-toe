@@ -107,6 +107,11 @@ module ::Guard
 
     def run_lint_for pathname
       system "bundle exec rake lint:file TEST=#{pathname}"
+      system "bundle exec rake lint:file TEST=#{rb_file_for(pathname)}"
+    end
+
+    def rb_file_for pathname
+      pathname.sub(/lib(.+).spec/, 'lib\1.rb')
     end
   end
 end
