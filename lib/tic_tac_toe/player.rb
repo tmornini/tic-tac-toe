@@ -5,6 +5,7 @@ module TicTacToe
     def initialize args
       @name = args[:name]
       @side = args[:side]
+      @cell = Cell.new(side: self)
     end
 
     def to_s
@@ -18,7 +19,7 @@ module TicTacToe
     def make_move_on args
       board = args[:board]
 
-      board.put_cell_at cell: Cell.new(player: self),
+      board.put_cell_at cell: @cell,
                         x:    rand(3),
                         y:    rand(3)
     end

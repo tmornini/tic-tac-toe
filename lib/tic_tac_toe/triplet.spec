@@ -35,7 +35,7 @@ module TicTacToe
           end
         end
 
-        When 'at least one cell is filled and all three cells are the same' do
+        When 'at least one cell is filled and all cells are the same' do
           let(:cell_0) { x_cell }
           let(:cell_1) { x_cell }
           let(:cell_2) { x_cell }
@@ -43,12 +43,12 @@ module TicTacToe
           let(:x_cell)   { Cell.new player: x_player }
           let(:x_player) { Player.new name: 'Bob', side: :x }
 
-          ByReturning 'the winning Player' do
-            subject.check_for_winner.must_be_instance_of Player
+          ByReturning 'a winning Cell' do
+            subject.check_for_winner.must_be_instance_of Cell
           end
         end
 
-        When 'all cells are filled and all three cells are not equal' do
+        When 'all cells are filled and all cells are not the same' do
           let(:cell_0) { x_cell }
           let(:cell_1) { o_cell }
           let(:cell_2) { o_cell }

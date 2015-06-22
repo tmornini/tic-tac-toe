@@ -15,7 +15,7 @@ module TicTacToe
     end
 
     let(:player_name) { 'Tom' }
-    let(:side) { :x }
+    let(:side)        { :x }
 
     RespondsTo :new do
       ByReturning 'a new Player' do

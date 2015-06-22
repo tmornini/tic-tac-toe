@@ -13,7 +13,7 @@ module TicTacToe
     def check_for_winner
       return nil if @cell_0 == Cell || @cell_1 == Cell || @cell_2 == Cell
 
-      return @cell_0.player if @cell_0 == @cell_1 && @cell_1 == @cell_2
+      return @cell_0 if @cell_0 == @cell_1 && @cell_1 == @cell_2
 
       nil
     end
