@@ -12,6 +12,8 @@ module TicTacToe
     end
 
     def put_cell_at args
+      return nil unless @cells[args[:x]][args[:y]] == Cell
+
       @cells[args[:x]][args[:y]] = args[:cell]
     end
 

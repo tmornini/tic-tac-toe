@@ -37,12 +37,30 @@ module TicTacToe
       end
 
       RespondsTo :put_cell_at do
-        ByReturning 'the :cell parameter' do
-          subject.put_cell_at(
-            cell: cell,
-            x:    x,
-            y:    y
-          ).must_equal cell
+        When 'the cell is occupied' do
+          ByReturning 'the :cell parameter' do
+            subject.put_cell_at(
+              cell: cell,
+              x:    x,
+              y:    y
+            )
+
+            subject.put_cell_at(
+              cell: cell,
+              x:    x,
+              y:    y
+            ).must_be_nil
+          end
+        end
+
+        When 'the cell is empty' do
+          ByReturning 'the :cell parameter' do
+            subject.put_cell_at(
+              cell: cell,
+              x:    x,
+              y:    y
+            ).must_equal cell
+          end
         end
       end
 
