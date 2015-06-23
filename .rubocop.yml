@@ -1,3 +1,14 @@
+AllCops:
+  Include:
+    - '**/Gemfile'
+    - '**/Rakefile'
+    - '**/Guardfile'
+    - '**/config.ru'
+    - '**/*.gemspec'
+    - '**/*.rake'
+    - '**/*.rb'
+    - '**/*.spec'
+
 Lint/AmbiguousOperator:
   Enabled: false
 
