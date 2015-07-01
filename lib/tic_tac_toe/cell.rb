@@ -10,15 +10,16 @@ module TicTacToe
 
     def initialize args = { }
       @player = args[:player]
+      @side   = args[:side]
     end
 
-    CONVERT_XNESS_TO_X_OR_O = {
-      true  => 'X',
-      false => 'O'
+    CONVERT_SIDE_TO_X_OR_O = {
+      x: 'X',
+      o: 'O'
     }
 
     def to_s
-      CONVERT_XNESS_TO_X_OR_O[@player.x?]
+      CONVERT_SIDE_TO_X_OR_O[@side]
     end
   end
 end

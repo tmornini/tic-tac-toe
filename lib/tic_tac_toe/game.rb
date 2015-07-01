@@ -10,12 +10,18 @@ module TicTacToe
 
     def play
       loop do
-        @player_1.make_move_on board: @board
-        # @board.check_for_winner
-        @player_2.make_move_on board: @board
-        # @board.check_for_winner
-        break
+        players.each do |player|
+          player.make_move_on board: @board
+
+          return player if @board.has_winner?
+        end
       end
+    end
+
+    private
+
+    def players
+      [@player_1, @player_2]
     end
   end
 end

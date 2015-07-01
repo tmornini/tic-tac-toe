@@ -28,10 +28,10 @@ module TicTacToe
     Instance do
       subject { Triplet.new args }
 
-      RespondsTo :check_for_winner do
+      RespondsTo :has_winner? do
         When 'a cell is empty' do
           ByReturning nil do
-            subject.check_for_winner.must_be_nil
+            subject.has_winner?.must_be_nil
           end
         end
 
@@ -40,11 +40,11 @@ module TicTacToe
           let(:cell_1) { x_cell }
           let(:cell_2) { x_cell }
 
-          let(:x_cell)   { Cell.new player: x_player }
+          let(:x_cell)   { Cell.new player: x_player, side: :x }
           let(:x_player) { Player.new name: 'Bob', side: :x }
 
           ByReturning 'a winning Cell' do
-            subject.check_for_winner.must_be_instance_of Cell
+            subject.has_winner?.must_be_instance_of Cell
           end
         end
 
@@ -53,20 +53,20 @@ module TicTacToe
           let(:cell_1) { o_cell }
           let(:cell_2) { o_cell }
 
-          let(:x_cell)   { Cell.new player: x_player }
+          let(:x_cell)   { Cell.new player: x_player, side: :x }
           let(:x_player) { Player.new name: 'Bob', side: :x }
-          let(:o_cell)   { Cell.new player: o_player }
+          let(:o_cell)   { Cell.new player: o_player, side: :o }
           let(:o_player) { Player.new name: 'Cindy', side: :o }
 
           ByReturning nil do
-            subject.check_for_winner.must_be_nil
+            subject.has_winner?.must_be_nil
           end
         end
       end
 
       RespondsTo :to_s do
         ByReturning 'the Players name' do
-          subject.to_s.must_equal "| #{cell_0} | #{cell_1} | #{cell_2} |"
+          subject.to_s.must_equal '|   |   |   |'
         end
       end
     end

@@ -32,6 +32,9 @@ Style/MethodCalledOnDoEndBlock:
 Style/MethodDefParentheses:
   EnforcedStyle: require_no_parentheses
 
+Style/PredicateName:
+  Enabled: false
+
 Style/SingleLineMethods:
   Enabled: false
 

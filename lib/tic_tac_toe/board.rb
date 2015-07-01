@@ -17,8 +17,8 @@ module TicTacToe
       @cells[args[:x]][args[:y]] = args[:cell]
     end
 
-    def check_for_winner
-      row_0.check_for_winner
+    def has_winner?
+      !all_triplets.select(&:has_winner?).empty?
     end
 
     def to_s
@@ -79,6 +79,12 @@ module TicTacToe
       Triplet.new cell_0: @cells[0][0],
                   cell_1: @cells[1][1],
                   cell_2: @cells[2][2]
+    end
+
+    def all_triplets
+      [row_0, row_1, row_2,
+       column_0, column_1, column_2,
+       diagonal_0, diagonal_1]
     end
   end
 end

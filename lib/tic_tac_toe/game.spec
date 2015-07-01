@@ -11,10 +11,13 @@ module TicTacToe
     let(:args) do
       {
         board:    Board.new,
-        player_1: Player.new(name: player_1_name),
-        player_2: Player.new(name: player_2_name)
+        player_1: player_1,
+        player_2: player_2
       }
     end
+
+    let(:player_1) { Player.new(name: player_1_name) }
+    let(:player_2) { Player.new(name: player_2_name) }
 
     let(:player_1_name) { 'Tom' }
     let(:player_2_name) { 'John' }
@@ -30,12 +33,8 @@ module TicTacToe
 
       RespondsTo :play do
         ByReturning nil do
-          subject.play.must_be_nil
+          subject.play.must_be_same_as player_1
         end
-      end
-
-      RespondsTo :to_s do
-        ByReturning 'a String'
       end
     end
   end

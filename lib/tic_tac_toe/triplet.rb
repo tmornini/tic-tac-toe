@@ -10,7 +10,7 @@ module TicTacToe
       @cell_2 = args[:cell_2]
     end
 
-    def check_for_winner
+    def has_winner?
       return nil if @cell_0 == Cell || @cell_1 == Cell || @cell_2 == Cell
 
       return @cell_0 if @cell_0 == @cell_1 && @cell_1 == @cell_2

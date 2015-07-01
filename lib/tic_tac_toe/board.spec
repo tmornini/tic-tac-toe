@@ -32,7 +32,8 @@ module TicTacToe
 
       let(:cell) do
         Cell.new(
-          player: player
+          player: player,
+          side:   side
         )
       end
 
@@ -64,9 +65,35 @@ module TicTacToe
         end
       end
 
-      RespondsTo :check_for_winner do
-        ByReturning 'the winning Player or nil' do
-          subject.check_for_winner.must_be_nil
+      RespondsTo :has_winner? do
+        When 'there is no winner' do
+          ByReturning false do
+            subject.has_winner?.must_equal false
+          end
+        end
+
+        When 'there is a winner' do
+          ByReturning true do
+            subject.put_cell_at(
+              cell: cell,
+              x:    0,
+              y:    0
+            )
+
+            subject.put_cell_at(
+              cell: cell,
+              x:    0,
+              y:    1
+            )
+
+            subject.put_cell_at(
+              cell: cell,
+              x:    0,
+              y:    2
+            )
+
+            subject.has_winner?.must_equal true
+          end
         end
       end
 

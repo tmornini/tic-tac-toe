@@ -9,14 +9,15 @@ module TicTacToe
   Class Cell do
     let(:args) do
       {
-        player: player
+        player: player,
+        side:   side
       }
     end
 
     let(:player) { Player.new name: player_name, side: side }
 
     let(:player_name) { 'Tom' }
-    let(:side) { :x }
+    let(:side)        { :x }
 
     RespondsTo :new do
       ByReturning 'a new Cell' do
