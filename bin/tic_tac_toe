@@ -1,0 +1,27 @@
+#!/usr/bin/env ruby
+# -*- encoding : utf-8 -*-
+
+$LOAD_PATH.unshift 'lib'
+
+require 'tic_tac_toe/board'
+require 'tic_tac_toe/game'
+require 'tic_tac_toe/player'
+
+module TicTacToe
+  player_1 = Player.new(name: 'Tom',  side: :x)
+  player_2 = Player.new(name: 'John', side: :o)
+
+  board = Board.new
+
+  1.upto(1) do
+    winner = Game.new(
+      board:    board,
+      player_1: player_1,
+      player_2: player_2
+    ).play
+
+    puts "Winner, winner, chicken dinner! #{winner}"
+    puts board
+    puts
+  end
+end

@@ -6,8 +6,6 @@ module TicTacToe
       ' '
     end
 
-    attr_reader :player
-
     def initialize args = { }
       @player = args[:player]
       @side   = args[:side]

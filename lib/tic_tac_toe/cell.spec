@@ -34,10 +34,6 @@ module TicTacToe
     Instance do
       subject { Cell.new args }
 
-      RespondsTo :player do
-        ByReturning 'a Player, which is very, very naughty'
-      end
-
       RespondsTo :to_s do
         When 'player is on side :x' do
           ByReturning 'an X' do

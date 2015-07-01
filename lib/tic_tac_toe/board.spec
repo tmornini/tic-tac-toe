@@ -6,6 +6,8 @@ require 'tic_tac_toe/board'
 require 'tic_tac_toe/cell'
 require 'tic_tac_toe/player'
 
+# rubocop:disable Metrics/ModuleLength
+
 module TicTacToe
   Class Board do
     RespondsTo :new do
@@ -17,23 +19,37 @@ module TicTacToe
     Instance do
       subject { Board.new }
 
-      let(:player) do
+      let(:x_player) do
         Player.new(
-          name: player_name,
-          side: side
+          name: x_player_name,
+          side: :x
         )
       end
 
-      let(:player_name) { 'Tom' }
-      let(:side)        { :x }
+      let(:o_player) do
+        Player.new(
+          name: o_player_name,
+          side: :o
+        )
+      end
+
+      let(:x_player_name) { 'Tom' }
+      let(:o_player_name) { 'John' }
 
       let(:x)      { 1 }
       let(:y)      { 1 }
 
-      let(:cell) do
+      let(:x_cell) do
         Cell.new(
-          player: player,
-          side:   side
+          player: x_player,
+          side:   :x
+        )
+      end
+
+      let(:o_cell) do
+        Cell.new(
+          player: o_player,
+          side:   :o
         )
       end
 
@@ -41,13 +57,13 @@ module TicTacToe
         When 'the cell is occupied' do
           ByReturning 'the :cell parameter' do
             subject.put_cell_at(
-              cell: cell,
+              cell: x_cell,
               x:    x,
               y:    y
             )
 
             subject.put_cell_at(
-              cell: cell,
+              cell: x_cell,
               x:    x,
               y:    y
             ).must_be_nil
@@ -57,10 +73,10 @@ module TicTacToe
         When 'the cell is empty' do
           ByReturning 'the :cell parameter' do
             subject.put_cell_at(
-              cell: cell,
+              cell: x_cell,
               x:    x,
               y:    y
-            ).must_equal cell
+            ).must_equal x_cell
           end
         end
       end
@@ -75,24 +91,92 @@ module TicTacToe
         When 'there is a winner' do
           ByReturning true do
             subject.put_cell_at(
-              cell: cell,
+              cell: x_cell,
               x:    0,
               y:    0
             )
 
             subject.put_cell_at(
-              cell: cell,
+              cell: x_cell,
               x:    0,
               y:    1
             )
 
             subject.put_cell_at(
-              cell: cell,
+              cell: x_cell,
               x:    0,
               y:    2
             )
 
             subject.has_winner?.must_equal true
+          end
+        end
+      end
+
+      RespondsTo :is_tied? do
+        When 'the board is tied' do
+          ByReturning true do
+            subject.put_cell_at(
+              cell: o_cell,
+              x:    0,
+              y:    0
+            )
+
+            subject.put_cell_at(
+              cell: x_cell,
+              x:    0,
+              y:    1
+            )
+
+            subject.put_cell_at(
+              cell: x_cell,
+              x:    0,
+              y:    2
+            )
+
+            subject.put_cell_at(
+              cell: x_cell,
+              x:    1,
+              y:    0
+            )
+
+            subject.put_cell_at(
+              cell: o_cell,
+              x:    1,
+              y:    1
+            )
+
+            subject.put_cell_at(
+              cell: o_cell,
+              x:    1,
+              y:    2
+            )
+
+            subject.put_cell_at(
+              cell: o_cell,
+              x:    2,
+              y:    0
+            )
+
+            subject.put_cell_at(
+              cell: x_cell,
+              x:    2,
+              y:    1
+            )
+
+            subject.put_cell_at(
+              cell: x_cell,
+              x:    2,
+              y:    2
+            )
+
+            subject.is_tied?.must_equal true
+          end
+        end
+
+        When 'the board is not tied' do
+          ByReturning false do
+            subject.is_tied?.must_equal false
           end
         end
       end

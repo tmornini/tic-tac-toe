@@ -6,21 +6,39 @@ require 'tic_tac_toe/board'
 require 'tic_tac_toe/game'
 require 'tic_tac_toe/player'
 
+# rubocop:disable Metrics/ModuleLength
+
 module TicTacToe
   Class Game do
     let(:args) do
       {
-        board:    Board.new,
-        player_1: player_1,
-        player_2: player_2
+        board:    board,
+        player_1: x_player,
+        player_2: o_player
       }
     end
 
-    let(:player_1) { Player.new(name: player_1_name) }
-    let(:player_2) { Player.new(name: player_2_name) }
+    let(:board) { Board.new }
 
-    let(:player_1_name) { 'Tom' }
-    let(:player_2_name) { 'John' }
+    let(:x_player) { Player.new name: x_player_name, side: :x }
+    let(:o_player) { Player.new name: o_player_name, side: :o }
+
+    let(:x_player_name) { 'Tom' }
+    let(:o_player_name) { 'John' }
+
+    let(:x_cell) do
+      Cell.new(
+        player: x_player,
+        side:   :x
+      )
+    end
+
+    let(:o_cell) do
+      Cell.new(
+        player: o_player,
+        side:   :o
+      )
+    end
 
     RespondsTo :new do
       ByReturning 'a new Game' do
@@ -32,8 +50,94 @@ module TicTacToe
       subject { Game.new args }
 
       RespondsTo :play do
-        ByReturning nil do
-          subject.play.must_be_same_as player_1
+        When 'there is a winner' do
+          let(:board) do
+            b = Board.new
+
+            b.put_cell_at(
+              cell: x_cell,
+              x:    0,
+              y:    0
+            )
+
+            b.put_cell_at(
+              cell: x_cell,
+              x:    0,
+              y:    1
+            )
+
+            b.put_cell_at(
+              cell: x_cell,
+              x:    0,
+              y:    2
+            )
+
+            b
+          end
+
+          ByReturning 'the winning Player' do
+            subject.play.must_be_instance_of Player
+          end
+        end
+
+        When 'the game is a tie' do
+          ByReturning nil do
+            board.put_cell_at(
+              cell: o_cell,
+              x:    0,
+              y:    0
+            )
+
+            board.put_cell_at(
+              cell: x_cell,
+              x:    0,
+              y:    1
+            )
+
+            board.put_cell_at(
+              cell: x_cell,
+              x:    0,
+              y:    2
+            )
+
+            board.put_cell_at(
+              cell: x_cell,
+              x:    1,
+              y:    0
+            )
+
+            board.put_cell_at(
+              cell: o_cell,
+              x:    1,
+              y:    1
+            )
+
+            board.put_cell_at(
+              cell: o_cell,
+              x:    1,
+              y:    2
+            )
+
+            board.put_cell_at(
+              cell: o_cell,
+              x:    2,
+              y:    0
+            )
+
+            board.put_cell_at(
+              cell: x_cell,
+              x:    2,
+              y:    1
+            )
+
+            board.put_cell_at(
+              cell: x_cell,
+              x:    2,
+              y:    2
+            )
+
+            subject.play.must_be_nil
+          end
         end
       end
     end

@@ -13,7 +13,9 @@ module TicTacToe
         players.each do |player|
           player.make_move_on board: @board
 
+          # TODO: Determine order of next two lines statistically
           return player if @board.has_winner?
+          return nil    if @board.is_tied?
         end
       end
     end

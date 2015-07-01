@@ -12,6 +12,8 @@ module TicTacToe
     end
 
     def put_cell_at args
+      return true if all_cells_occupied?
+
       return nil unless @cells[args[:x]][args[:y]] == Cell
 
       @cells[args[:x]][args[:y]] = args[:cell]
@@ -19,6 +21,11 @@ module TicTacToe
 
     def has_winner?
       !all_triplets.select(&:has_winner?).empty?
+    end
+
+    def is_tied?
+      # if all cells are filled and there is no winner
+      all_cells_occupied? && !has_winner?
     end
 
     def to_s
@@ -32,6 +39,10 @@ module TicTacToe
     end
 
     private
+
+    def all_cells_occupied?
+      @cells.flatten.select { |cell| cell == Cell }.empty?
+    end
 
     def row_0
       Triplet.new cell_0: @cells[0][2],
