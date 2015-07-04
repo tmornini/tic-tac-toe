@@ -4,24 +4,41 @@
 $LOAD_PATH.unshift 'lib'
 
 require 'tic_tac_toe/board'
+require 'tic_tac_toe/formatter'
 require 'tic_tac_toe/game'
 require 'tic_tac_toe/player'
 
 module TicTacToe
-  player_1 = Player.new(name: 'Tom',  side: :x)
-  player_2 = Player.new(name: 'John', side: :o)
+  player_1 = Player.new(name: 'Jarvis', side: :x)
+  player_2 = Player.new(name: 'Ultron', side: :o)
 
-  board = Board.new
+  wins = {
+    player_1.to_s => 0,
+    player_2.to_s => 0,
+    nil.to_s      => 0
+  }
 
-  1.upto(1) do
+  1.upto(1_000) do
+    board = Board.new
+
     winner = Game.new(
       board:    board,
       player_1: player_1,
       player_2: player_2
     ).play
 
-    puts "Winner, winner, chicken dinner! #{winner}"
     puts board
+
+    if winner
+      puts "Winner, winner, chicken dinner! #{winner}"
+    else
+      puts 'Tie game!'
+    end
+
+    wins[winner.to_s] += 1
+
     puts
   end
+
+  Formatter.puts wins
 end
