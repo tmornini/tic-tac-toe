@@ -4,8 +4,8 @@ module TicTacToe
   class Game
     def initialize args
       @board    = args[:board]
-      @player_1 = args[:player_1]
-      @player_2 = args[:player_2]
+      @x_player = args[:x_player]
+      @o_player = args[:o_player]
     end
 
     def play
@@ -23,7 +23,7 @@ module TicTacToe
     private
 
     def players
-      [@player_1, @player_2]
+      [@x_player, @o_player]
     end
   end
 end

@@ -13,8 +13,8 @@ module TicTacToe
     let(:args) do
       {
         board:    board,
-        player_1: x_player,
-        player_2: o_player
+        x_player: x_player,
+        o_player: o_player
       }
     end
 
