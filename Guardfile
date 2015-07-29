@@ -13,12 +13,11 @@ module ::Guard
     end
 
     def start
-      # run_all
+      run_all
       true
     end
 
     def stop
-      system 'rake clean'
       true
     end
 
@@ -37,7 +36,7 @@ module ::Guard
     def run_on_modifications pathnames
       pathnames.each do |pathname|
         throw_on_failed_tests do
-          take_appropriate_action_for(pathname)
+          handle pathname
         end
       end
 
@@ -55,63 +54,49 @@ module ::Guard
       true
     end
 
-    def spec_helper? pathname
+    def spec_prefix_for pathname
+      pathname
+        .match(
+          %r{^(lib/(.+/)?[^/]+)[.](rb|spec)$}
+        )[1]
+    end
+
+    def spec_pathname_for pathname
+      return pathname if pathname.match /[.]spec$/
+      spec_prefix_for(pathname) + '.spec'
+    end
+
+    def not_applicable? pathname
       pathname.match /spec_helper/
     end
 
-    def unit_spec? pathname
-      pathname !~ /^spec/
+    def handle pathname
+      return if not_applicable? pathname
+
+      handle_unit_spec_for pathname
+      handle_integration_spec_for pathname
+      handle_lint_for pathname
     end
 
-    def take_appropriate_action_for pathname
-      return if spec_helper? pathname
-
-      if unit_spec? pathname
-        run_unit_spec_for(pathname)
-      else
-        run_integration_spec_for(pathname)
-      end
-
-      run_lint_for(pathname)
-    end
-
-    def spec_file_exists_for? pathname
-      File.exist? pathname
-    end
-
-    def run_unit_spec_for pathname
+    def handle_unit_spec_for pathname
       spec_pathname = spec_pathname_for pathname
 
-      if spec_file_exists_for? spec_pathname
+      if File.exist? spec_pathname
         system "bundle exec rake spec:unit TEST=#{spec_pathname}"
       else
         puts "#{pathname} is missing spec #{spec_pathname}"
       end
     end
 
-    def run_integration_spec_for pathname
+    def handle_integration_spec_for pathname
+      return unless pathname.match /^spec/
+
       system 'bundle exec rake spec:integration ' \
              "TEST=#{spec_pathname_for pathname}"
     end
 
-    def spec_pathname_for pathname
-      return pathname if pathname.match /[.]spec$/
-      spec_pathname_prefix_for(pathname) + '.spec'
-    end
-
-    def spec_pathname_prefix_for pathname
-      pathname.match(
-        %r{^(lib/(.+/)?[^/]+)[.](rb|spec)$}
-      )[1]
-    end
-
-    def run_lint_for pathname
+    def handle_lint_for pathname
       system "bundle exec rake lint:file TEST=#{pathname}"
-      system "bundle exec rake lint:file TEST=#{rb_file_for(pathname)}"
-    end
-
-    def rb_file_for pathname
-      pathname.sub(/lib(.+).spec/, 'lib\1.rb')
     end
   end
 end
@@ -123,5 +108,5 @@ guard :subledger do
     nil
   end
 
-  watch %r{lib/(.+)[.](rb|spec)$}
+  watch %r{(lib|spec)/(.+)[.](rb|spec)$}
 end
