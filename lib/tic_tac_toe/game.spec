@@ -4,7 +4,8 @@ require '_spec/_helpers'
 
 require 'tic_tac_toe/board'
 require 'tic_tac_toe/game'
-require 'tic_tac_toe/player'
+
+require 'tic_tac_toe/players/random'
 
 # rubocop:disable Metrics/ModuleLength
 
@@ -20,8 +21,8 @@ module TicTacToe
 
     let(:board) { Board.new }
 
-    let(:x_player) { Player.new name: x_player_name, side: :x }
-    let(:o_player) { Player.new name: o_player_name, side: :o }
+    let(:x_player) { Players::Random.new name: x_player_name, side: :x }
+    let(:o_player) { Players::Random.new name: o_player_name, side: :o }
 
     let(:x_player_name) { 'Tom' }
     let(:o_player_name) { 'John' }
@@ -76,7 +77,7 @@ module TicTacToe
           end
 
           ByReturning 'the winning Player' do
-            subject.play.must_be_instance_of Player
+            subject.play.must_be_instance_of Players::Random
           end
         end
 

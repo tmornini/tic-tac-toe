@@ -2,8 +2,9 @@
 
 require '_spec/_helpers'
 
-require 'tic_tac_toe/player'
 require 'tic_tac_toe/triplet'
+
+require 'tic_tac_toe/players/random'
 
 module TicTacToe
   Class Triplet do
@@ -41,7 +42,7 @@ module TicTacToe
           let(:cell_2) { x_cell }
 
           let(:x_cell)   { Cell.new player: x_player, side: :x }
-          let(:x_player) { Player.new name: 'Bob', side: :x }
+          let(:x_player) { Players::Random.new name: 'Bob', side: :x }
 
           ByReturning 'a winning Cell' do
             subject.has_winner?.must_be_instance_of Cell
@@ -54,9 +55,9 @@ module TicTacToe
           let(:cell_2) { o_cell }
 
           let(:x_cell)   { Cell.new player: x_player, side: :x }
-          let(:x_player) { Player.new name: 'Bob', side: :x }
+          let(:x_player) { Players::Random.new name: 'Bob', side: :x }
           let(:o_cell)   { Cell.new player: o_player, side: :o }
-          let(:o_player) { Player.new name: 'Cindy', side: :o }
+          let(:o_player) { Players::Random.new name: 'Cindy', side: :o }
 
           ByReturning nil do
             subject.has_winner?.must_be_nil

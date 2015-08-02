@@ -3,7 +3,8 @@
 require '_spec/_helpers'
 
 require 'tic_tac_toe/cell'
-require 'tic_tac_toe/player'
+
+require 'tic_tac_toe/players/random'
 
 module TicTacToe
   Class Cell do
@@ -14,7 +15,7 @@ module TicTacToe
       }
     end
 
-    let(:player) { Player.new name: player_name, side: side }
+    let(:player) { Players::Random.new name: player_name, side: side }
 
     let(:player_name) { 'Tom' }
     let(:side)        { :x }

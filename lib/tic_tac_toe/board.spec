@@ -4,7 +4,8 @@ require '_spec/_helpers'
 
 require 'tic_tac_toe/board'
 require 'tic_tac_toe/cell'
-require 'tic_tac_toe/player'
+
+require 'tic_tac_toe/players/random'
 
 # rubocop:disable Metrics/ModuleLength
 
@@ -20,14 +21,14 @@ module TicTacToe
       subject { Board.new }
 
       let(:x_player) do
-        Player.new(
+        Players::Random.new(
           name: x_player_name,
           side: :x
         )
       end
 
       let(:o_player) do
-        Player.new(
+        Players::Random.new(
           name: o_player_name,
           side: :o
         )

@@ -5,17 +5,19 @@ $LOAD_PATH.unshift 'lib'
 
 require 'tic_tac_toe/formatter'
 require 'tic_tac_toe/game_starter'
-require 'tic_tac_toe/player'
+
+require 'tic_tac_toe/players/random'
+require 'tic_tac_toe/players/terminal'
 
 module TicTacToe
   player_details = [
     {
       name:  'Jarvis',
-      klass: Player
+      klass: Players::Random
     },
     {
       name:  'Ultron',
-      klass: Player
+      klass: Players::Terminal
     }
   ]
 
