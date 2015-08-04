@@ -13,13 +13,23 @@ module TicTacToe
         "name: #{@name}, side: #{@side}"
       end
 
+      DEFAULTS = {
+        kernel: Kernel
+      }
+
       def make_move_on args
+        args = DEFAULTS.merge args
+
+        kernel = args[:kernel]
+
         board = args[:board]
 
         loop do
-          puts board
+          kernel.puts board
 
-          break if board.put_cell_at choose_square.merge cell: @cell
+          break if board.put_cell_at choose_square(args).merge cell: @cell
+
+          kernel.puts 'Space occupied. Try again, dumbass.'
         end
 
         @cell
@@ -27,10 +37,14 @@ module TicTacToe
 
       private
 
-      def choose_square
+      def choose_square args
+        kernel = args[:kernel]
+
+        kernel.puts 'Please select a move.'
+
         {
-          x: gets.chomp.to_i,
-          y: gets.chomp.to_i
+          x: kernel.gets.chomp.to_i,
+          y: kernel.gets.chomp.to_i
         }
       end
     end

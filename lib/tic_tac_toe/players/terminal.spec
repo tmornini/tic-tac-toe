@@ -17,7 +17,7 @@ module TicTacToe
       end
 
       let(:player_name) { 'Tom' }
-      let(:side)        { :x }
+      let(:side)        { :x    }
 
       RespondsTo :new do
         ByReturning 'a new Terminal Player' do
@@ -37,11 +37,28 @@ module TicTacToe
         RespondsTo :make_move_on do
           let(:move_args) do
             {
-              board: Board.new
+              board:  board,
+              kernel: kernel
             }
           end
 
+          let(:board)  { Board.new       }
+          let(:kernel) { double 'kernel' }
+
           ByReturning 'a Cell' do
+            expect(kernel)
+              .to receive(:puts)
+              .with(board)
+
+            expect(kernel)
+              .to receive(:puts)
+              .with('Please select a move.')
+
+            expect(kernel)
+              .to receive(:gets)
+              .exactly(2).times
+              .and_return('1')
+
             subject.make_move_on(move_args).must_be_instance_of Cell
           end
         end
