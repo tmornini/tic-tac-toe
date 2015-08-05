@@ -80,6 +80,21 @@ module TicTacToe
             ).must_equal x_cell
           end
         end
+
+        When 'x or y or both is/are out of bounds' do
+          let(:x) { -1 }
+          let(:y) {  3 }
+
+          ByRaising ArgumentError do
+            lambda do
+              subject.put_cell_at(
+                cell: x_cell,
+                x:    x,
+                y:    y
+              )
+            end.must_raise ArgumentError
+          end
+        end
       end
 
       RespondsTo :has_winner? do

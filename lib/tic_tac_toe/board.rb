@@ -12,6 +12,8 @@ module TicTacToe
     end
 
     def put_cell_at args
+      verify_coordinates args
+
       return true if all_cells_occupied?
 
       return nil unless @cells[args[:x]][args[:y]] == Cell
@@ -39,6 +41,13 @@ module TicTacToe
     end
 
     private
+
+    def verify_coordinates args
+      x = args[:x]
+      y = args[:y]
+
+      fail ArgumentError if x < 0 || x > 2 || y < 0 || y > 2
+    end
 
     def all_cells_occupied?
       @cells.flatten.select { |cell| cell == Cell }.empty?
