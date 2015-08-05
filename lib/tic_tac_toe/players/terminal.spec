@@ -55,6 +55,14 @@ module TicTacToe
               .with('Please select a move.')
 
             expect(kernel)
+              .to receive(:print)
+              .with('x-position (0, 1, or 2): ')
+
+            expect(kernel)
+              .to receive(:print)
+              .with('y-position (0, 1, or 2): ')
+
+            expect(kernel)
               .to receive(:gets)
               .exactly(2).times
               .and_return('1')
