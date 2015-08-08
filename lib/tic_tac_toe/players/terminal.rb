@@ -6,7 +6,7 @@ module TicTacToe
       def initialize args
         @name = args[:name]
         @side = args[:side]
-        @cell = Cell.new(player: @player, side: @side)
+        @cell = Cell.new(player: self, side: @side)
       end
 
       def to_s
