@@ -26,6 +26,9 @@ Style/Documentation:
 Style/EmptyLineBetweenDefs:
   AllowAdjacentOneLineDefs: true
 
+Style/ExtraSpacing:
+  Enabled: false
+
 Style/MethodCalledOnDoEndBlock:
   Enabled: false
 

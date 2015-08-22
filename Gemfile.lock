@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/tmornini/rake.git
-  revision: f9b4660fd02603404e45134f057c173e403d802f
+  revision: 9d4f7c0718d1294cf1fe5425ace28f8241b2fd7a
   branch: usable_custom_test_loader
   specs:
     rake (10.4.2)
@@ -87,4 +87,4 @@ DEPENDENCIES
   rubocop
 
 BUNDLED WITH
-   1.10.4
+   1.10.6
