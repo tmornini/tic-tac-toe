@@ -6,7 +6,7 @@ $LOAD_PATH.unshift 'lib'
 require 'tic_tac_toe/formatter'
 require 'tic_tac_toe/game_starter'
 
-require 'tic_tac_toe/strategists/learning'
+# require 'tic_tac_toe/strategists/learning'
 require 'tic_tac_toe/strategists/random'
 require 'tic_tac_toe/strategists/terminal'
 
@@ -14,17 +14,17 @@ module TicTacToe
   player_details = [
     {
       name:       'Jarvis',
-      strategist: Strategists::Terminal.new
+      strategist: Strategists::Random.new
     },
     {
       name:       'Ultron',
-      strategist: Strategists::Terminal.new
+      strategist: Strategists::Random.new
     }
   ]
 
   wins = Hash.new(0)
 
-  1.upto(1) do
+  1.upto(1_000) do
     result = GameStarter.start player_details: player_details
 
     state  = result[:state]
