@@ -4,10 +4,7 @@ require '_spec/_helpers'
 
 require 'tic_tac_toe/board'
 require 'tic_tac_toe/game'
-
-require 'tic_tac_toe/players/random'
-
-# rubocop:disable Metrics/ModuleLength
+require 'tic_tac_toe/player'
 
 module TicTacToe
   Class Game do
@@ -19,24 +16,22 @@ module TicTacToe
       }
     end
 
-    let(:board) { Board.new }
+    let(:board) { double 'board' }
 
-    let(:x_player) { Players::Random.new name: x_player_name, side: :x }
-    let(:o_player) { Players::Random.new name: o_player_name, side: :o }
+    let(:x_player) { double 'x_player' }
+    let(:o_player) { double 'y_player' }
 
     let(:x_player_name) { 'Tom' }
     let(:o_player_name) { 'John' }
 
     let(:x_cell) do
       Cell.new(
-        player: x_player,
         side:   :x
       )
     end
 
     let(:o_cell) do
       Cell.new(
-        player: o_player,
         side:   :o
       )
     end
@@ -52,90 +47,34 @@ module TicTacToe
 
       RespondsTo :play do
         When 'there is a winner' do
-          let(:board) do
-            b = Board.new
-
-            b.put_cell_at(
-              cell: x_cell,
-              x:    0,
-              y:    0
-            )
-
-            b.put_cell_at(
-              cell: x_cell,
-              x:    0,
-              y:    1
-            )
-
-            b.put_cell_at(
-              cell: x_cell,
-              x:    0,
-              y:    2
-            )
-
-            b
-          end
-
           ByReturning 'the winning Player' do
-            subject.play.must_be_instance_of Players::Random
+            expect(x_player)
+              .to receive(:make_move_on)
+              .with(board: board)
+              .and_return(x_player)
+
+            expect(board)
+              .to receive(:has_winner?)
+              .and_return(true)
+
+            subject.play.must_be_same_as x_player
           end
         end
 
         When 'the game is a tie' do
           ByReturning nil do
-            board.put_cell_at(
-              cell: o_cell,
-              x:    0,
-              y:    0
-            )
+            expect(x_player)
+              .to receive(:make_move_on)
+              .with(board: board)
+              .and_return(x_player)
 
-            board.put_cell_at(
-              cell: x_cell,
-              x:    0,
-              y:    1
-            )
+            expect(board)
+              .to receive(:has_winner?)
+              .and_return(false)
 
-            board.put_cell_at(
-              cell: x_cell,
-              x:    0,
-              y:    2
-            )
-
-            board.put_cell_at(
-              cell: x_cell,
-              x:    1,
-              y:    0
-            )
-
-            board.put_cell_at(
-              cell: o_cell,
-              x:    1,
-              y:    1
-            )
-
-            board.put_cell_at(
-              cell: o_cell,
-              x:    1,
-              y:    2
-            )
-
-            board.put_cell_at(
-              cell: o_cell,
-              x:    2,
-              y:    0
-            )
-
-            board.put_cell_at(
-              cell: x_cell,
-              x:    2,
-              y:    1
-            )
-
-            board.put_cell_at(
-              cell: x_cell,
-              x:    2,
-              y:    2
-            )
+            expect(board)
+              .to receive(:is_tied?)
+              .and_return(true)
 
             subject.play.must_be_nil
           end

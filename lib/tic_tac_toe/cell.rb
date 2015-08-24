@@ -6,9 +6,8 @@ module TicTacToe
       ' '
     end
 
-    def initialize args = { }
-      @player = args[:player]
-      @side   = args[:side]
+    def initialize args
+      @side = args[:side]
     end
 
     CONVERT_SIDE_TO_X_OR_O = {

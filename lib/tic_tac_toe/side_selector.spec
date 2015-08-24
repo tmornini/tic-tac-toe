@@ -9,6 +9,9 @@ module TicTacToe
     let(:args) do
       {
         random_klass:   random_klass,
+
+        cell_klass:     cell_klass,
+        player_klass:   player_klass,
         player_details: [
           player_1_details,
           player_2_details
@@ -16,27 +19,30 @@ module TicTacToe
       }
     end
 
+    let(:random_klass) { double 'random_klass' }
+
+    let(:cell_klass)   { double 'cell_klass'   }
+    let(:player_klass) { double 'player_klass' }
+
     let(:player_1_details) do
       {
-        name:  player_1_name,
-        klass: player_1_klass
+        name:       player_1_name,
+        strategist: player_1_strategist
       }
     end
 
     let(:player_2_details) do
       {
-        name:  player_2_name,
-        klass: player_2_klass
+        name:       player_2_name,
+        strategist: player_2_strategist
       }
     end
 
-    let(:random_klass) { double 'random_klass' }
+    let(:player_1_name)       { :player_1_name               }
+    let(:player_1_strategist) { double 'player_1_strategist' }
 
-    let(:player_1_name)  { :player_1_name          }
-    let(:player_1_klass) { double 'player_1_klass' }
-
-    let(:player_2_name)  { :player_2_name          }
-    let(:player_2_klass) { double 'player_2_klass' }
+    let(:player_2_name)       { :player_2_name               }
+    let(:player_2_strategist) { double 'player_2_strategist' }
 
     RespondsTo :select do
       When 'player 1 wins the coin flip' do
@@ -46,14 +52,24 @@ module TicTacToe
             .with(2)
             .and_return(0)
 
-          expect(player_1_klass)
+          expect(cell_klass)
             .to receive(:new)
-            .with(player_1_details.merge side: :x)
+            .with(side: :x)
+            .and_return(:x_cell)
+
+          expect(player_klass)
+            .to receive(:new)
+            .with(player_1_details.merge cell: :x_cell)
             .and_return(:x_player)
 
-          expect(player_2_klass)
+          expect(cell_klass)
             .to receive(:new)
-            .with(player_2_details.merge side: :o)
+            .with(side: :o)
+            .and_return(:o_cell)
+
+          expect(player_klass)
+            .to receive(:new)
+            .with(player_2_details.merge cell: :o_cell)
             .and_return(:o_player)
 
           subject.select(args).must_equal(
@@ -70,14 +86,24 @@ module TicTacToe
             .with(2)
             .and_return(1)
 
-          expect(player_2_klass)
+          expect(cell_klass)
             .to receive(:new)
-            .with(player_2_details.merge side: :x)
+            .with(side: :x)
+            .and_return(:x_cell)
+
+          expect(player_klass)
+            .to receive(:new)
+            .with(player_2_details.merge cell: :x_cell)
             .and_return(:x_player)
 
-          expect(player_1_klass)
+          expect(cell_klass)
             .to receive(:new)
-            .with(player_1_details.merge side: :o)
+            .with(side: :o)
+            .and_return(:o_cell)
+
+          expect(player_klass)
+            .to receive(:new)
+            .with(player_1_details.merge cell: :o_cell)
             .and_return(:o_player)
 
           subject.select(args).must_equal(
